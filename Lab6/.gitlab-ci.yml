@@ -1,0 +1,75 @@
+# Robert Smith -- Check Lab 6 Code Ouputs
+
+stages:
+    - setup
+    - build
+    - test
+
+check-file-structure:
+    stage: setup
+    tags:
+        - ugrad
+    script:
+        - test -d Lab6
+        - test -d Lab6/bintree
+        - test -d Lab6/queue
+        - test -d Lab6/stack
+        - test -f Lab6/bintree/bintree.c
+        - test -f Lab6/bintree/bintree.h
+        - test -f Lab6/bintree/Makefile
+        - test -f Lab6/queue/queue.c
+        - test -f Lab6/queue/queue.h
+        - test -f Lab6/queue/Makefile
+        - test -f Lab6/stack/stack.c
+        - test -f Lab6/stack/stack.h
+        - test -f Lab6/stack/Makefile
+
+run-queue:
+    stage: test
+    tags:
+        - ugrad
+    script:
+        - cp CI/objects/queue/queueM.o Lab6/queue/
+        - cd Lab6/queue/
+        - rm -f queue queue.o
+        - make
+        - test -f queue.o
+        - test -f queue
+        - ./queue
+
+run-stack:
+    stage: test
+    tags:
+        - ugrad
+    script:
+        - cp CI/objects/stack/stackM.o Lab6/stack/
+        - cd Lab6/stack/
+        - rm -f stack stack.o
+        - make
+        - test -f stack.o
+        - test -f stack
+        - ./stack
+
+run-bintree:
+    stage: test
+    tags:
+        - ugrad
+    script:
+        - cp CI/objects/bintree/* Lab6/bintree/
+        - cd Lab6/bintree/
+        - rm -f bintree.o bintree 
+        - rm -f intree pretree posttree revtree
+        - make
+        - test -f bintree.o
+        - test -f bintree
+        - test -f intree
+        - test -f pretree
+        - test -f posttree
+        - test -f revtree
+        - ./bintree
+        - ./intree > in_out
+        - ./pretree > pre_out
+        - ./posttree > post_out
+        - ./revtree > rev_out
+        - ../../CI/compare-expected-files.sh
+

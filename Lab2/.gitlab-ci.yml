@@ -1,0 +1,68 @@
+# Robert Smith -- Check Lab 2 Code Ouputs
+
+stages:
+    - setup
+    - build
+    - test
+
+check-file-structure:
+    stage: setup
+    tags:
+        - ugrad
+    script:
+        - CI/check-num-files.sh
+        - test -d Lab2
+        - test -d Lab2/coins
+        - test -d Lab2/power
+        - test -d Lab2/triangle
+        - test -f Lab2/coins/coins.c
+        - test -f Lab2/coins/coins.h
+        - test -f Lab2/power/power.c
+        - test -f Lab2/power/power.h
+        - test -f Lab2/triangle/triangle.c
+        - test -f Lab2/triangle/triangle.h
+
+run-coins:
+    stage: test
+    tags:
+        - ugrad
+    script:
+        - cp CI/objects/coins/* Lab2/coins/
+        - cd Lab2/coins/
+        - gcc --std=c18 coinsM.o coins.c -o coins
+        - test -f coins
+        - ./coins > output
+        - if [ $( diff output expected | wc -c ) == 0 ]; then true; else false; fi
+    artifacts:
+        paths:
+            - Lab2/coins/output
+
+run-power:
+    stage: test
+    tags:
+        - ugrad
+    script:
+        - cp CI/objects/power/* Lab2/power/
+        - cd Lab2/power/
+        - gcc --std=c18 powerM.o power.c -o power
+        - test -f power
+        - ./power > output
+        - if [ $( diff output expected | wc -c ) == 0 ]; then true; else false; fi
+    artifacts:
+        paths:
+            - Lab2/power/output
+
+run-triangle:
+    stage: test
+    tags:
+        - ugrad
+    script:
+        - cp CI/objects/triangle/* Lab2/triangle/
+        - cd Lab2/triangle/
+        - gcc --std=c18 -lm triangleM.o triangle.c -o triangle
+        - test -f triangle
+        - ./triangle > output
+        - if [ $( diff output expected | wc -c ) == 0 ]; then true; else false; fi
+    artifacts:
+        paths:
+            - Lab2/triangle/output

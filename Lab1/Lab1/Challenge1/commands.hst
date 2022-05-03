@@ -1,0 +1,23 @@
+    1  mkdir -p one/two/three this/that/theother us/them
+    2  touch one/{07kindhearted,17start} one/two/{01never,19history} one/two/three/{08spot,09today,10tame,18curious} this/{05gonna,15sulky} this/that/{06bike,11give,12expensive} this/that/theother/{04conscious,16you} us/02card us/them/{03spoil,13boot,14water,20up}
+    3  echo "tell me not to tell me what's for dinner" > one/two/01never
+    4  echo "these kids at the door" > us/02card 
+    5  echo "every puppy you see, but not the flowers" > us/them/03spoil
+    6  echo "decisions make conscious efforts" > this/that/theother/04conscious
+    7  echo "take you out for a steak dinner" > this/05gonna
+    8  echo "all the way to town using only one leg and an expensive hat" > this/that/06bike
+    9  echo "people beatbox their way into my heart" > one/07kindhearted
+   10  echo "the difference between these two pictures" > one/two/three/08spot
+   11  echo "is the first day of your new life as a living thing" > one/two/three/09today 
+   12  echo "the lions before you put your head in their mouth" > one/two/three/10tame
+   13  echo "me a hug and buy me dinner because you're making me hungry" > this/that/11give
+   14  echo "rings are expensive things and that's sad" > this/that/12expensive
+   15  echo "him out of the boat and save yourself" > us/them/13boot
+   16  echo "the garden, unless you're scared of flowers" > us/them/14water
+   17  echo "children really test the bounds of child abuse law" > this/15sulky
+   18  echo "should cook dinner for the one you love, especially if it's a puppy" > this/that/theother/16you
+   19  echo "picking flowers and sing me a song about not letting anything go, ever" > one/17start
+   20  echo "ity killed the cat, and that's sad" > one/two/three/18curious
+   21  echo "is boring, unless it's about puppies because puppies are awesome" > one/two/19history
+   22  echo "the creek without paddle will make me late for dinner" > us/them/20up
+   23  history > commands.hst

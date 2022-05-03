@@ -1,0 +1,54 @@
+# Robert Smith -- Check Lab 7 Code Ouputs
+
+stages:
+    - setup
+    - build
+    - test
+
+check-file-structure:
+    stage: setup
+    tags:
+        - ugrad
+    script:
+        - test -d Lab7
+        - test -d Lab7/search
+        - test -d Lab7/dictionary
+        - test -f Lab7/search/bintree.c
+        - test -f Lab7/search/bintree.h
+        - test -f Lab7/search/Makefile
+        - test -f Lab7/dictionary/dictionary.c
+        - test -f Lab7/dictionary/dictionary.h
+        - test -f Lab7/dictionary/Makefile
+
+run-dictionary:
+    stage: test
+    tags:
+        - ugrad
+    script:
+        - cp CI/objects/dictionary/dictM.o Lab7/dictionary/
+        - cd Lab7/dictionary/
+        - rm -f dictionary.o dictionary
+        - make
+        - test -f dictionary.o
+        - test -f dictionary
+        - ./dictionary
+    timeout: 15s
+
+run-search:
+    stage: test
+    tags:
+        - ugrad
+    script:
+        - cp CI/objects/search/* Lab7/search/
+        - cd Lab7/search/
+        - rm -f search.o search dfs bfs
+        - make
+        - test -f search.o
+        - test -f search
+        - test -f dfs
+        - test -f bfs
+        - ./search
+        - ./dfs > dfs_out
+        - ./bfs > bfs_out
+        - ../../CI/compare-expected-files.sh
+    timeout: 15s
